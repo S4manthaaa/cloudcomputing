@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waqq.ly</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <form method="post" id="user form">
+        <p>
+            <label for="fullname">Fullname:</label>
+            <input type="text" name="fullname" id="fullname" required placeholder="Full Name" />
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required placeholder="Email" />
+        </p>
+        <p>
+            <label for="postcode">Postcode:</label>
+            <input type="text" name="postcode" id="postcode" placeholder="Postcode"/>
+        </p>
+        <button type="submit" name="submit">Submit</button>
+    </form>
+
+    <form method="post" id="dog form">
+        <p>
+            <label for="Dogname">Dog name:</label>
+            <input type="text" name="Dogname" id="Dogname" required placeholder="Dog Name"/>
+        </p>
+        <p>
+            <label for="Breed">Breed:</label>
+            <input type="text" name="Breed" id="Breed" required placeholder="Breed"/>
+        </p>
+        <p>
+            <label for="Age">Age:</label>
+            <input type="Number" name="Age" id="Age" placeholder="Age"/>
+        </p>
+        <p>
+            <label for="Owner">Owner:</label>
+            <input type="text" name="Owner" id="Owner" placeholder="Owner"/>
+        </p>
+        <button type="submit" name="submit">Submit</button>
+    </form>
+</body>
+</html>
+    <script type="module">
+ 
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDh56liXXWCJ55fjaIBPL8hQXqqkgroDnw",
+            authDomain: "cloudcomputing-dogwalker.firebaseapp.com",
+            databaseURL: "https://cloudcomputing-dogwalker-default-rtdb.firebaseio.com",
+            projectId: "cloudcomputing-dogwalker",
+            storageBucket: "cloudcomputing-dogwalker.appspot.com",
+            messagingSenderId: "90756342526",
+            appId: "1:90756342526:web:11de7480293ac07a7bfbaf",
+            measurementId: "G-P6J3GK9HEF"
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+
+
+        const db = getDatabase(app);
+
+        document.getElementById('user form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            set(ref(db, 'users/' + Math.random().toString(36).slice(2, 7)), {
+                name: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('postcode').value
+            });
+
+            alert('Your form is submitted');
+            document.getElementById('user form').reset();
+        });
+
+        document.getElementById('dog form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            set(ref(db, 'dogs/' + Math.random().toString(36).slice(2, 7)), {
+                dogname: document.getElementById('Dogname').value,
+                breed: document.getElementById('Breed').value,
+                age: document.getElementById('Age').value,
+                owner: document.getElementById('Owner').value
+            });
+
+            alert('Your form is submitted');
+            document.getElementById('dog form').reset();
+        });
+    </script>
+</body>
+
+</html>
